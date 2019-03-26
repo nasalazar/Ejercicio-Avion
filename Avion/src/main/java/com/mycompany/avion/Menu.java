@@ -352,39 +352,40 @@ public class Menu {
                 prueba=2;
         }
     }
-      public void TestAvion(int op){
-          int opcion= op;
-          if(opcion == 1){
-                 
+      public String TestAvion(int op){
+          String sillas = "";
+          int opcion = op;
+          if(opcion==1){
                     for(Integer sillaTe :mapaSilla.keySet()){
                             Silla sillaTem = mapaSilla.get(sillaTe);
                             if(sillaTem.getPrecio()== 50000 && sillaTem.getEstado()== 1){
-                                System.out.println(sillaTem.getUbicacion());
-                                System.out.println(sillaTem.getPrecio());       
+                                sillas += sillaTem.getUbicacion(); 
+                                return sillas;
                             }
                     }
                  
-            }else if(opcion == 2){  
+            }else if(opcion==2){  
                    
                     for(Integer sillaTc :mapaSilla.keySet()){
                             Silla sillaTcm = mapaSilla.get(sillaTc);
                             if(sillaTcm.getPrecio()== 70000 && sillaTcm.getEstado()== 1){
-                                System.out.println(sillaTcm.getUbicacion());
-                                System.out.println(sillaTcm.getPrecio());       
+                                sillas += sillaTcm.getUbicacion();       
+                                return sillas;
                             }
                     } 
-                    String aerolinea = "Avion2";
-                    reserva(aerolinea);
-            }else if(opcion == 3){ 
+                    
+            }else if(opcion==3){ 
                 
                     for(Integer sillaTm :mapaSilla.keySet()){
                             Silla sillaTmm = mapaSilla.get(sillaTm);
                             if(sillaTmm.getPrecio()== 65000 && sillaTmm.getEstado()== 1){
-                                System.out.println(sillaTmm.getUbicacion());
-                                System.out.println(sillaTmm.getPrecio());       
+                                sillas += sillaTmm.getUbicacion();       
+                                return sillas;
                             }
                     }
                 }
+          
+         return "HOLA";
       }
          
      public static void main(String[] args) {		
