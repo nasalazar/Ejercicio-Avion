@@ -246,7 +246,7 @@ public class Menu {
       * @param aero recibe este parametro que contiene el nombre de la aerolinea que selecciono 
       *
       */
-    public void reserva(String aero){
+        public void reserva(String aero){
     int prueba = 1;
         while(prueba == 1){
             Scanner scan2 = new Scanner(System.in);
@@ -314,7 +314,7 @@ public class Menu {
                 
     }
 
- }  
+ }
         /**
         *Metodo para despegar el avion  
         */
