@@ -38,6 +38,7 @@ public class Menu {
     static double totalA2=0;
     static double totalA3=0;
     static String aerolinea;
+    //static Avion avionClase = new Avion();
      
     /**
      * Metodo que llena la informacion de las sillas y los aviones
@@ -50,15 +51,15 @@ public class Menu {
          
          Economico e1 = new Economico(1,"Avion1");
         
-         mapaAvion.put(1,e1);
+
          
          Costoso c1 = new Costoso(2,"Avion2");
         
-         mapaAvion.put(2,c1);
+         
          
          Multi m1 = new Multi(3,"Avion3");
          
-         mapaAvion.put(3,m1);
+         
          
         Silla s1 = new Silla(1,"a1",50000,1);
         Silla s2 = new Silla(2,"a2",50000,1);
@@ -99,6 +100,7 @@ public class Menu {
          e1.getMapaSilla().put(8, s8);
          e1.getMapaSilla().put(9, s9);
          e1.getMapaSilla().put(9, s10);
+         mapaAvion.put(1,e1);
          
          c1.getMapaSilla().put(1 ,s11);
          c1.getMapaSilla().put(2 ,s12);
@@ -110,12 +112,14 @@ public class Menu {
          c1.getMapaSilla().put(8 ,s18);
          c1.getMapaSilla().put(9 ,s19);
          c1.getMapaSilla().put(10,s20);
+         mapaAvion.put(2,c1);
          
          m1.getMapaSilla().put(1 ,s21);
          m1.getMapaSilla().put(2 ,s22);
          m1.getMapaSilla().put(3 ,s23);
          m1.getMapaSilla().put(4 ,s24);
          m1.getMapaSilla().put(5 ,s25);
+        mapaAvion.put(3,m1);
         
          mapaSilla.put(1, s1); 
          mapaSilla.put(2, s2);
@@ -242,48 +246,49 @@ public class Menu {
       * @param aero recibe este parametro que contiene el nombre de la aerolinea que selecciono 
       *
       */
-     public void reserva(String aero){
-        int prueba = 1;
-            while(prueba == 1){
-                Scanner scan2 = new Scanner(System.in);
-                System.out.println("   DIGITE LA SILLA A RESERVAR ");
-                String sillaR;
-                
+    public void reserva(String aero){
+    int prueba = 1;
+        while(prueba == 1){
+            Scanner scan2 = new Scanner(System.in);
+            System.out.println("   DIGITE LA SILLA A RESERVAR ");
+            String sillaR;        
                 try{
                     sillaR = scan2.nextLine().toLowerCase();
-                    for(Integer key : mapaSilla.keySet()){
-                        if(mapaSilla.get(key).getUbicacion().equals(sillaR)&& mapaSilla.get(key).getEstado()==1 && mapaAvion.get(key).getAerolinea().equals(aero)){
+                    for(Integer p:mapaAvion.keySet()){
+                        String aeroAux = mapaAvion.get(p).getAerolinea();
+                        for(Integer key : mapaSilla.keySet()){
+                        if(mapaSilla.get(key).getUbicacion().equals(sillaR)&& mapaSilla.get(key).getEstado()==1 && aeroAux.equals(aero)){
                            double valors = mapaSilla.get(key).getPrecio();
                            prueba = 2;
                            int prueba1 = 1;
                            while(prueba1 ==1){
                                   Scanner scan3 = new Scanner(System.in); 
                                   try{
-                                  System.out.println("Digite su nombre");
-                                  String nombre;
-                                  nombre = scan3.nextLine();
-                                  prueba1 = 2;
-                                  int prueba2 = 1;
-                                      while(prueba2 ==1){
-                                          Scanner scan4 = new Scanner(System.in);
-                                          try{
-                                          System.out.println("Digite su documento:");
-                                          String documento;
-                                          documento = scan4.nextLine();
-                                          prueba2 = 2;
-                                          int prueba3 = 1;
-                                          while(prueba3 ==1){
-                                              Scanner scan5 = new Scanner(System.in); 
-                                              try{
-                                                  System.out.println("Fecha:");
-                                                  String fecha;
-                                                  fecha = scan4.nextLine();
-                                                  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                                                  Date testDate = null;                                                           
-                                                  testDate = df.parse(fecha);
-                                                  if(mapaSilla.get(key).getUbicacion().equals(sillaR)){
+                                    System.out.println("Digite su nombre");
+                                    String nombre;
+                                    nombre = scan3.nextLine();
+                                    prueba1 = 2;
+                                    int prueba2 = 1;
+                                    while(prueba2 ==1){
+                                        Scanner scan4 = new Scanner(System.in);
+                                        try{
+                                            System.out.println("Digite su documento:");
+                                            String documento;
+                                            documento = scan4.nextLine();
+                                            int doc = Integer.parseInt(documento);
+                                            prueba2 = 2;
+                                            int prueba3 = 1;
+                                            while(prueba3 ==1){
+                                                Scanner scan5 = new Scanner(System.in); 
+                                                try{
+                                                    System.out.println("Fecha:");
+                                                    String fecha;
+                                                    fecha = scan4.nextLine();
+                                                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                                                    Date testDate = null;                                                           
+                                                    testDate = df.parse(fecha);
+                                                    if(sillaR.equals(mapaSilla.get(key).getUbicacion())){
                                                         mapaSilla.get(key).setEstado(2);
-                                                        
                                                         if(valors==50000){
                                                             totalA1 += valors;
                                                         }else if(valors==70000){
@@ -295,31 +300,19 @@ public class Menu {
                                                         menu();
                                                     }
                                                     prueba3=2;
-                                                    if (!df.format(testDate).equals(fecha)){
-                                                    System.out.println("La fecha no tiene el formato correcto // año-mes-dia");
-                                                    }
-                                                }catch (ParseException e){ System.out.println("La fecha no es la correcta, intente de nuevo");}
-
-
+                                                }catch (ParseException e){ System.out.println("La fecha no es la correcta, intente de nuevo // año-mes-dia");}
                                             }prueba2 = 2;  
-                                            
-                                            }catch(InputMismatchException e){
-
-                                            }
-                                        }prueba1 = 2;
-                                  }catch(InputMismatchException e){
-
-                                  }
-                                 
-                           }prueba = 2;
+                                        }catch(InputMismatchException | NumberFormatException e){System.out.println("Solo puede digitar numeros");}
+                                    }prueba1 = 2;
+                                }catch(InputMismatchException e){System.out.println("Su nombre está mal digitado");}
+                            }prueba = 2;
                         }
                     }
-                    
-                }catch(Exception e){
+                }    
+            }catch(Exception e){    
+        }
                 
-                }
-                
-            }
+    }
 
  }  
         /**
